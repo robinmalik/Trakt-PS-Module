@@ -502,6 +502,94 @@ function Get-TraktBoxOfficePopular
 	$Value
 }
 
+function Get-TraktUserCollection
+{
+	[CmdletBinding()]
+	param (
+		[Parameter(Mandatory=$true)]
+		[String]$UserSlug,
+		[Parameter(Mandatory=$true)]
+		[ValidateSet('movies','shows')]
+		[String]$Type
+	)
+	
+	if ([string]::IsNullOrEmpty($global:ClientID) -ne $true)
+	{
+		$ClientId = $global:ClientID
+		
+	}
+	elseif (Test-Path -Path "$env:APPDATA\TraktInfo.xml")
+	{
+		[XML]$XMLInfo = Get-Content -Path "$env:APPDATA\TraktInfo.xml"
+		$ClienIDImport = $XMLInfo.TraktInfo.ClientID
+		$ClientId = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($ClienIDImport))
+	}
+	else
+	{
+		Write-Error "Please use Set-TraktAuthInfo Function First"
+		break
+	}
+	
+	$headers = @{ }
+	$headers.Add("trakt-api-version", "2") | out-null
+	$headers.Add("trakt-api-key", $global:ClientID) | Out-Null
+	$invoke = Invoke-WebRequest -Uri "https://api.trakt.tv/users/$UserSlug/collection/$Type" -ContentType application/json -Headers $headers
+	$Value = $invoke.content | ConvertFrom-Json
+
+	if($Type -eq 'movies')
+	{
+		$Suffix = 'movie'
+	}
+	else {
+		$Suffix = 'show'
+	}
+	$Value.$Suffix
+}
+
+function Get-TraktUserWatched
+{
+	[CmdletBinding()]
+	param (
+		[Parameter(Mandatory=$true)]
+		[String]$UserSlug,
+		[Parameter(Mandatory=$true)]
+		[ValidateSet('movies','shows')]
+		[String]$Type
+	)
+	
+	if ([string]::IsNullOrEmpty($global:ClientID) -ne $true)
+	{
+		$ClientId = $global:ClientID
+		
+	}
+	elseif (Test-Path -Path "$env:APPDATA\TraktInfo.xml")
+	{
+		[XML]$XMLInfo = Get-Content -Path "$env:APPDATA\TraktInfo.xml"
+		$ClienIDImport = $XMLInfo.TraktInfo.ClientID
+		$ClientId = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($ClienIDImport))
+	}
+	else
+	{
+		Write-Error "Please use Set-TraktAuthInfo Function First"
+		break
+	}
+	
+	$headers = @{ }
+	$headers.Add("trakt-api-version", "2") | out-null
+	$headers.Add("trakt-api-key", $global:ClientID) | Out-Null
+	$invoke = Invoke-WebRequest -Uri "https://api.trakt.tv/users/$UserSlug/watched/$Type" -ContentType application/json -Headers $headers
+	$Value = $invoke.content | ConvertFrom-Json
+	
+	if($Type -eq 'movies')
+	{
+		$Suffix = 'movie'
+	}
+	else {
+		$Suffix = 'show'
+	}
+	$Value.$Suffix
+}
+
 <#
 	.SYNOPSIS
 		Search all text fields that a media object contains.

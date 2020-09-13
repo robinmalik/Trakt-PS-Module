@@ -73,21 +73,23 @@
 	
 	# Functions to export from this module
 	FunctionsToExport	   = @(
-		'ConvertFrom-EpochDate',
-		'Set-TraktObject',
-		'Set-TraktAuthInfo',
-		'Connect-Trakt',
-		'Get-TraktAnticipatedMovies',
-		'Get-TraktBoxOfficeMovies',
-		'Get-TraktBoxOfficeTrending',
-		'Get-TraktBoxOfficePopular',
-		'Search-TraktMediaTextQuery',
-		'Search-TraktMediaIdLookup',
-		'Get-TraktUserCustomLists',
-		'Get-TraktUserSettings',
-		'Get-TraktUserListItems',
-		'Remove-TraktUserListItem',
 		'Add-TraktUserListItem'
+		'Connect-Trakt'
+		'ConvertFrom-EpochDate'		
+		'Get-TraktAnticipatedMovies'
+		'Get-TraktBoxOfficeMovies'
+		'Get-TraktBoxOfficePopular'
+		'Get-TraktBoxOfficeTrending'		
+		'Get-TraktUserCollection'		
+		'Get-TraktUserCustomLists'
+		'Get-TraktUserListItems'
+		'Get-TraktUserSettings'	
+		'Get-TraktUserWatched'
+		'Remove-TraktUserListItem'
+		'Search-TraktMediaTextQuery'
+		'Search-TraktMediaIdLookup'
+		'Set-TraktObject'
+		'Set-TraktAuthInfo'
 	)#For performance, list functions explicitly
 	
 	# Cmdlets to export from this module
@@ -133,8 +135,3 @@
 		
 	} # End of PrivateData hashtable
 }
-
-
-
-
-

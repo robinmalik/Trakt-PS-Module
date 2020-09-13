@@ -27,9 +27,23 @@ Connect-Trakt -ClientID "9841ds81e8d1e281f8e1f81" -ClientSecret "c7e1dce1d9f29e4
 Connect-Trakt -ClientID "9841ds81e8d1e281f8e1f81" -ClientSecret "c7e1dce1d9f29e4fdd9e1f9e1f9e1f9e1f9e1f" -Save $true
 ```
 
-## Exemple
+## Example
 ```PowerShell
 Connect-Trakt -ClientID "9841ds81e8d1e281f8e1f81" -ClientSecret "c7e1dce1d9f29e4fdd9e1f9e1f9e1f9e1f9e1f"
 $TraktObj = Set-TraktObject -MediaType movies -IdType tmdb -MediaID "479455"
 Add-TraktUserListItem -list "Watchlist 1" -BodyObj $TraktObj
 ```
+
+## Example
+```PowerShell
+# Get your movie and tv collections:
+$moviecollection = Get-TraktUserCollection -UserSlug 'TRAKTUSERNAME' -Type movies
+$tvcollection = Get-TraktUserCollection -UserSlug 'TRAKTUSERNAME' -Type shows
+```
+## Example
+```PowerShell
+# Get your watched movies:
+$Watched = Get-TraktUserWatched -UserSlug TRAKTUSERNAME -Type movies
+```
+
+
